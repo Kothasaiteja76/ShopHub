@@ -208,7 +208,7 @@ ShopHub
 ├── models/
 │   ├── Cart.js
 │   ├── Order.js
-│  middleware ├── Product.js
+│   ├── Product.js
 │   └── User.js
 ├── routes/
 │   ├── adminRoutes.js
