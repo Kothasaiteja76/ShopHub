@@ -232,7 +232,9 @@ frontend/
 │   ├── context/
 │   │   ├── AuthContext.jsx       # Global auth state (user, token, login, logout)
 │   │   └── CartContext.jsx       # Global cart state and operations
-│   ├── App.jsx                   # Main router and layout
+│   
+├── index.css
+├── App.jsx                   # Main router and layout
 │   └── index.js                  # React entry point
 ├── .env
 ├── package.json
