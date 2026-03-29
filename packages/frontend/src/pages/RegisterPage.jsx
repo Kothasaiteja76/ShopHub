@@ -14,24 +14,28 @@ const RegisterPage = () => {
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    if (form.password.length < 6) {
-      toast.error("Password must be at least 6 characters");
-      return;
-    }
-    setLoading(true);
-    try {
-      const { data } = await API.post("/api/auth/register", form);
-      login(data.user, data.token);
-      toast.success("Account created successfully!");
-      navigate("/");
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Registration failed");
-    } finally {
-      setLoading(false);
-    }
-  };
+   const handleSubmit = async (e) => {
+  e.preventDefault();
+  if (form.password.length < 6) {
+    toast.error("Password must be at least 6 characters");
+    return;
+  }
+  if (form.username.includes(" ")) {
+    toast.error("Username cannot have spaces");
+    return;
+  }
+  setLoading(true);
+  try {
+    const { data } = await API.post("/api/auth/register", form);
+    login(data.user, data.token);
+    toast.success("Account created successfully!");
+    navigate("/");
+  } catch (err) {
+    toast.error(err.response?.data?.message || "Registration failed");
+  } finally {
+    setLoading(false);
+  }
+}
 
   return (
     <div style={{

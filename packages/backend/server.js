@@ -28,6 +28,7 @@ if (process.env.NODE_ENV === "development") {
   app.use(morgan("dev"));
 }
 
+// Body parsing
 app.use((req, res, next) => {
   if (req.originalUrl === "/api/payments/webhook") {
     next();
@@ -38,17 +39,17 @@ app.use((req, res, next) => {
 
 app.use(express.urlencoded({ extended: true }));
 
+// Health check
 app.get("/healthz", (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+// API info
 app.get("/api", (req, res) => {
-  res.status(200).json({
-    name: "E-Commerce API",
-    version: "1.0.0",
-  });
+  res.status(200).json({ name: "ShopHub API", version: "1.0.0" });
 });
 
+// Routes
 app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/products", productRoutes);
@@ -57,11 +58,20 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/payments", paymentRoutes);
 app.use("/api/admin", adminRoutes);
 
+// 404 handler
 app.use((req, res) => {
-  res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found.` });
+  res.status(404).json({ success: false, message: `Route ${req.originalUrl} not found` });
 });
 
-app.use(errorHandler);
+// Error handler — must have 4 params
+app.use((err, req, res, next) => {
+  const statusCode = res.statusCode === 200 ? 500 : res.statusCode;
+  console.error("Error:", err.message);
+  res.status(statusCode).json({
+    success: false,
+    message: err.message || "Server Error",
+  });
+});
 
 const PORT = process.env.PORT || 5000;
 
