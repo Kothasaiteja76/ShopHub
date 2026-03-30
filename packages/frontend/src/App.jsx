@@ -13,9 +13,9 @@ import ProductsPage from "./pages/ProductsPage";
 import ProductDetailPage from "./pages/ProductDetailPage";
 import CartPage from "./pages/CartPage";
 import CheckoutPage from "./pages/CheckoutPage";
+import PaymentPage from "./pages/PaymentPage";
 import OrdersPage from "./pages/OrdersPage";
 import OrderDetailPage from "./pages/OrderDetailPage";
-import PaymentPage from "./pages/PaymentPage";
 import ProfilePage from "./pages/ProfilePage";
 import AdminDashboard from "./pages/admin/AdminDashboard";
 import AdminProducts from "./pages/admin/AdminProducts";
@@ -32,13 +32,18 @@ export default function App() {
             position="top-right"
             toastOptions={{
               style: {
-                background: "var(--bg-card)",
-                color: "var(--white)",
-                border: "1px solid var(--border)",
-                borderRadius: 10,
+                background: "#fff",
+                color: "#212121",
+                border: "1px solid #e0e0e0",
+                borderRadius: 8,
                 fontSize: 14,
               },
-              success: { iconTheme: { primary: "var(--gold)", secondary: "#0a0a0f" } },
+              success: {
+                iconTheme: { primary: "#26a541", secondary: "#fff" },
+              },
+              error: {
+                iconTheme: { primary: "#ff6161", secondary: "#fff" },
+              },
             }}
           />
           <Routes>
@@ -49,10 +54,10 @@ export default function App() {
             <Route path="/products/:id" element={<ProductDetailPage />} />
             <Route path="/cart" element={<ProtectedRoute><CartPage /></ProtectedRoute>} />
             <Route path="/checkout" element={<ProtectedRoute><CheckoutPage /></ProtectedRoute>} />
+            <Route path="/payment" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
             <Route path="/orders" element={<ProtectedRoute><OrdersPage /></ProtectedRoute>} />
             <Route path="/orders/:id" element={<ProtectedRoute><OrderDetailPage /></ProtectedRoute>} />
             <Route path="/profile" element={<ProtectedRoute><ProfilePage /></ProtectedRoute>} />
-            <Route path="/payment" element={<ProtectedRoute><PaymentPage /></ProtectedRoute>} />
             <Route path="/admin" element={<AdminRoute><AdminDashboard /></AdminRoute>} />
             <Route path="/admin/products" element={<AdminRoute><AdminProducts /></AdminRoute>} />
             <Route path="/admin/orders" element={<AdminRoute><AdminOrders /></AdminRoute>} />
