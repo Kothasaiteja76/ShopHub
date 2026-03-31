@@ -1,5 +1,4 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs");
 
 const userSchema = new mongoose.Schema(
   {
@@ -40,6 +39,7 @@ const userSchema = new mongoose.Schema(
 );
 
 userSchema.methods.matchPassword = async function (enteredPassword) {
+  const bcrypt = require("bcryptjs");
   return await bcrypt.compare(enteredPassword, this.password);
 };
 

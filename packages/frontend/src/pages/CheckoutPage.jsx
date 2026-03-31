@@ -36,45 +36,36 @@ export default function CheckoutPage() {
   };
 
   const placeOrder = async () => {
-  if (items.length === 0) { toast.error("Cart is empty"); return; }
-  setLoading(true);
-  try {
-    const { data } = await API.post("/api/orders/checkout", {
-      shippingAddress: {
-        street: address.street,
-        city: address.city,
-        state: address.state,
-        zipCode: address.zipCode,
-        country: address.country,
-      },
-    });
-    toast.success("Order confirmed! Proceeding to payment...");
-    // Navigate to payment page with order details
-    navigate("/payment", {
-      state: {
-        orderId: data.order._id,
-        amount: data.order.totalAmount,
-      }
-    });
-  } catch (err) {
-    toast.error(err.response?.data?.message || "Order failed");
-  } finally { setLoading(false); }
-};
+    setLoading(true);
+    try {
+      const { data } = await API.post("/api/orders/checkout", {
+        shippingAddress: {
+          street: address.street,
+          city: address.city,
+          state: address.state,
+          zipCode: address.zipCode,
+          country: address.country,
+        },
+      });
+      setOrderId(data.order._id);
+      await fetchCart();
+      setStep(2);
+    } catch (err) {
+      toast.error(err.response?.data?.message || "Order failed");
+    } finally { setLoading(false); }
+  };
 
-const handlePayment = async () => {
-  setLoading(true);
-  try {
-    // Confirm payment directly without Stripe for now
-    await API.post("/api/payments/confirm", { orderId });
-    await fetchCart();
-    toast.success("🎉 Order placed successfully!");
-    navigate("/orders");
-  } catch (err) {
-    toast.error(err.response?.data?.message || "Payment failed. Try again.");
-  } finally {
-    setLoading(false);
-  }
-};
+  const handlePayment = async () => {
+    setLoading(true);
+    try {
+      await API.post("/api/payments/confirm", { orderId });
+      toast.success("Order placed successfully!");
+      navigate("/orders");
+    } catch {
+      toast.error("Payment failed. Try again.");
+    } finally { setLoading(false); }
+  };
+
   return (
     <div style={{ minHeight: "calc(100vh - 108px)", background: "var(--bg)", paddingBottom: 40 }}>
 

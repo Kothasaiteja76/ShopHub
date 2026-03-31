@@ -25,8 +25,11 @@ export default function AdminDashboard() {
         ]);
         setStats(s.data.dashboard);
         setOrders(o.data.orders.slice(0, 8));
-      } catch {}
-      finally { setLoading(false); }
+      } catch (error) {
+        console.error("Failed to fetch dashboard data:", error);
+      } finally {
+        setLoading(false);
+      }
     };
     fetch();
   }, []);

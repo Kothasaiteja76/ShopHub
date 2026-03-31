@@ -9,11 +9,11 @@ export default function PaymentPage() {
   const navigate = useNavigate();
   const location = useLocation();
   const { fetchCart } = useCart();
-  const [orderId, setOrderId] = useState(location.state?.orderId || null);
-  const [orderAmount, setOrderAmount] = useState(location.state?.amount || 0);
+  const [orderId,_setOrderId] = useState(location.state?.orderId || null);
+  const [orderAmount,_setOrderAmount] = useState(location.state?.amount || 0);
   const [paymentMethod, setPaymentMethod] = useState("upi");
   const [loading, setLoading] = useState(false);
-  const [paid, setPaid] = useState(false);
+  const [Paid, setPaid] = useState(false);
   const [upiId, setUpiId] = useState("");
   const [card, setCard] = useState({ number: "", name: "", expiry: "", cvv: "" });
   const [step, setStep] = useState("method"); // method | details | processing | success
@@ -23,7 +23,7 @@ export default function PaymentPage() {
       toast.error("No order found. Please checkout first.");
       navigate("/cart");
     }
-  }, []);
+  },[orderId, navigate]);
 
   const formatCard = (val) => {
     return val.replace(/\D/g, "").replace(/(.{4})/g, "$1 ").trim().slice(0, 19);

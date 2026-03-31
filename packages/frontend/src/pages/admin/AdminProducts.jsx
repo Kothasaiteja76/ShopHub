@@ -20,8 +20,11 @@ export default function AdminProducts() {
     try {
       const { data } = await API.get("/api/products?limit=100");
       setProducts(data.products);
-    } catch {}
-    finally { setLoading(false); }
+    } catch (error) {
+      console.error("Failed to fetch products:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
   useEffect(() => { fetchProducts(); }, []);

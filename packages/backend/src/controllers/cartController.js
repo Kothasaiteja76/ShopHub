@@ -22,6 +22,7 @@ const addToCart = async (req, res) => {
     if (!productId) {
       return res.status(400).json({ success: false, message: "Product ID is required" });
     }
+  
 
     const product = await Product.findById(productId);
     if (!product) {

@@ -20,16 +20,22 @@ export default function AdminOrders() {
   const [filter, setFilter] = useState("all");
   const [updating, setUpdating] = useState({});
 
-  useEffect(() => {
-    const fetch = async () => {
-      try {
-        const { data } = await API.get("/api/admin/orders");
-        setOrders(data.orders);
-      } catch {}
-      finally { setLoading(false); }
-    };
-    fetch();
-  }, []);
+
+ useEffect(() => {
+  const fetchOrders = async () => {
+    try {
+      const { data } = await API.get("/admin/orders");
+      setOrders(data.orders);
+    } catch (error) {
+      console.error(error); // 👈 always log error
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  fetchOrders();
+}, []);
+
 
   const updateStatus = async (id, status) => {
     setUpdating(prev => ({ ...prev, [id]: true }));

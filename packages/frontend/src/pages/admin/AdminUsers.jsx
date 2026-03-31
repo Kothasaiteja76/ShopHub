@@ -15,7 +15,9 @@ export default function AdminUsers() {
       try {
         const { data } = await API.get("/api/admin/users");
         setUsers(data.users);
-      } catch {}
+      } catch (error) {
+        console.error("Failed to fetch users:", error);
+      }
       finally { setLoading(false); }
     };
     fetch();

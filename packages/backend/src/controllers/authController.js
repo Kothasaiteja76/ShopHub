@@ -27,7 +27,6 @@ const register = async (req, res) => {
       });
     }
 
-    // Check username has no spaces
     if (username.includes(" ")) {
       return res.status(400).json({
         success: false,
@@ -51,11 +50,15 @@ const register = async (req, res) => {
       });
     }
 
+    // Hash password here
+    const salt = await bcrypt.genSalt(10);
+    const hashedPassword = await bcrypt.hash(password, salt);
+
     const user = await User.create({
       username,
       fullName,
       email,
-      password,
+      password: hashedPassword,
     });
 
     res.status(201).json({
@@ -98,7 +101,8 @@ const login = async (req, res) => {
       });
     }
 
-    const isMatch = await user.matchPassword(password);
+    // Compare directly with bcrypt
+    const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) {
       return res.status(401).json({
         success: false,
