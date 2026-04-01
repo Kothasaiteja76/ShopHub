@@ -443,6 +443,7 @@ ShopHub
 
 ---
 
-**Document Owner:** Kothasaiteja76, Backend Developer — E-Commerce API
+**Document Owner:** Kothasaiteja76, Backend Developer — 
+ShopHub API
 **Version:** 1.0.0
 **Last Updated:** March 2026

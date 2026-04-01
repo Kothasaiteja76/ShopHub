@@ -10,7 +10,7 @@
 **Version:** 1.0.0
 **Product Type:** React.js Single Page Application (SPA)
 
-The E-Commerce Frontend is a responsive, single-page React.js web application that provides a complete online shopping experience. It connects to the E-Commerce REST API backend to deliver product browsing, cart management, order placement, and Stripe payment processing through a clean and intuitive user interface.
+The ShopHub Frontend is a responsive, single-page React.js web application that provides a complete online shopping experience. It connects to the ShopHub REST API backend to deliver product browsing, cart management, order placement, and Stripe payment processing through a clean and intuitive user interface.
 
 The application supports two user roles — **Customer** and **Admin** — with dedicated interfaces for each. Customers can browse, search, and purchase products. Admins get access to a full dashboard to manage products, orders, inventory, and users.
 
@@ -339,6 +339,7 @@ frontend/
 
 ---
 
-**Document Owner:** Kothasaiteja76, Frontend Developer — E-Commerce App
+**Document Owner:** Kothasaiteja76, Frontend Developer — \
+ShopHub
 **Version:** 1.0.0
 **Last Updated:** March 2026
